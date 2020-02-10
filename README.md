@@ -2,7 +2,7 @@
 Installs Lidarr into a Linux Container
 
 
-![Sonarr](https://github.com/Sonarr/Sonarr/blob/phantom-develop/Logo/128.png)
+![Lidarr](https://github.com/lidarr/Lidarr/raw/develop/Logo/128.png)
 
 ## Tag
 Several tag are available:
