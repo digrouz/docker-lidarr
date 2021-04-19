@@ -39,7 +39,6 @@ RUN set -x && \
       mono \
     && \
     cert-sync /etc/ssl/certs/ca-certificates.crt && \
-    ln -s /usr/lib/libmono-native.so.0 /usr/lib/libmono-native.so && \
     curl -SsL "https://github.com/lidarr/Lidarr/releases/download/v${LIDARR_VERSION}/Lidarr.master.${LIDARR_VERSION}.linux.tar.gz" -o /tmp/lidarr.tar.gz && \
     tar xzf /tmp/lidarr.tar.gz -C /opt && \
     echo "export XDG_CONFIG_HOME='${XDG_CONFIG_HOME}'" >> /etc/profile.d/docker-xdg.sh && \
