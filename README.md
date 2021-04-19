@@ -1,3 +1,7 @@
+[![auto-update-workflow](https://github.com/digrouz/docker-lidarr/actions/workflows/auto-update.yml/badge.svg)](https://github.com/digrouz/docker-lidarr/actions/workflows/auto-update.yml)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/digrouz/lidarr)
+![Docker Pulls](https://img.shields.io/docker/pulls/digrouz/lidarr)
+
 # docker-lidarr
 Installs Lidarr into a Linux Container
 
