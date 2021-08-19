@@ -56,7 +56,7 @@ RUN set -x && \
            /var/tmp/*
     
 ### Volume
-Volume ["/config","/downloads","music"]
+Volume ["/config","/downloads","/music"]
 
 ### Expose ports
 Expose 8686
