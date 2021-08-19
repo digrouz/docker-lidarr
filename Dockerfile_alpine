@@ -1,4 +1,4 @@
-FROM alpine:3.14444	
+FROM alpine:3.14
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
 ARG LIDARR_VERSION='2.0.0.5319'
