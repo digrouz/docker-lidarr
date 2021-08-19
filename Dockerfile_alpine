@@ -1,7 +1,7 @@
 FROM alpine:3.14
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG LIDARR_VERSION='2.0.0.5319'
+ARG LIDARR_VERSION='0.8.1.2135'
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
