@@ -1,5 +1,5 @@
 [![auto-update-workflow](https://github.com/digrouz/docker-lidarr/actions/workflows/auto-update.yml/badge.svg)](https://github.com/digrouz/docker-lidarr/actions/workflows/auto-update.yml)
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/digrouz/lidarr)
+[![dockerhub-workflow](https://github.com/digrouz/docker-lidarr/actions/workflows/dockerhub.yml/badge.svg)](https://github.com/digrouz/docker-lidarr/actions/workflows/dockerhub.yml)
 ![Docker Pulls](https://img.shields.io/docker/pulls/digrouz/lidarr)
 
 # docker-lidarr
