@@ -10,8 +10,10 @@ Installs Lidarr into a Linux Container
 
 ## Tag
 Several tag are available:
-* latest: see alpine
-* alpine: [Dockerfile_alpine](https://github.com/digrouz/docker-lidarr/blob/master/Dockerfile_alpine)
+* latest: see alpine-core
+* alpine: see alpine-core
+* alpine-core: [Dockerfile_alpine-core](https://github.com/digrouz/docker-lidarr/blob/master/Dockerfile_alpine-core)
+* alpine-mono: [Dockerfile_alpine-mono](https://github.com/digrouz/docker-lidarr/blob/master/Dockerfile_alpine-mono)
 
 ## Description
 

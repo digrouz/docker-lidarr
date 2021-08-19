@@ -2,6 +2,7 @@ FROM alpine:3.14
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
 ARG LIDARR_VERSION='0.8.1.2135'
+ARG LIDARR_ARCH='x64'
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
@@ -11,6 +12,7 @@ ENV LANG='en_US.UTF-8' \
     APPUID='10032' \
     APPGID='10032' \
     LIDARR_VERSION="${LIDARR_VERSION}" \
+    LIDARR_ARCH="${LIDARR_ARCH}" \
     XDG_CONFIG_HOME='/config/xdg'
     
 ### Copy config files
@@ -31,20 +33,26 @@ RUN set -x && \
     && \
     apk add --no-cache --virtual=run-deps \
       bash \
+      ca-certificates \
+      gcompat \
+      icu \
       mediainfo \
+      libintl \
+      sqlite-libs \
       su-exec \
       unrar \
       unzip \
     && \
     apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing --virtual=run-deps-testing \
       chromaprint \
-      mono \
     && \
-    cert-sync /etc/ssl/certs/ca-certificates.crt && \
-    curl -SsL "https://github.com/lidarr/Lidarr/releases/download/v${LIDARR_VERSION}/Lidarr.master.${LIDARR_VERSION}.linux.tar.gz" -o /tmp/lidarr.tar.gz && \
+    curl -SsL "https://github.com/lidarr/Lidarr/releases/download/v${LIDARR_VERSION}/Lidarr.master.${LIDARR_VERSION}.linux-musl-core-${LIDARR_ARCH}.tar.gz" -o /tmp/lidarr.tar.gz && \
     tar xzf /tmp/lidarr.tar.gz -C /opt && \
     echo "export XDG_CONFIG_HOME='${XDG_CONFIG_HOME}'" >> /etc/profile.d/docker-xdg.sh && \
     chmod 0755 /opt/Lidarr && \
+    find /opt/Lidarr -type d -exec chmod 0755 {} \; && \
+    find /opt/Lidarr -type f -exec chmod 0644 {} \; && \
+    chmod 0755 /opt/Lidarr/Lidarr && \
     apk del --no-cache --purge \
       build-deps  \
     && \
@@ -66,4 +74,4 @@ Expose 8686
 
 ### Start lidarr
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["lidarr"]
+CMD ["lidarr-core"]

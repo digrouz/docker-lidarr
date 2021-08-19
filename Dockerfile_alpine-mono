@@ -1,0 +1,69 @@
+FROM alpine:3.14
+LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+
+ARG LIDARR_VERSION='0.8.1.2135'
+
+### Environment variables
+ENV LANG='en_US.UTF-8' \
+    LANGUAGE='en_US.UTF-8' \
+    TERM='xterm' \
+    APPUSER='lidarr' \
+    APPUID='10032' \
+    APPGID='10032' \
+    LIDARR_VERSION="${LIDARR_VERSION}" \
+    XDG_CONFIG_HOME='/config/xdg'
+    
+### Copy config files
+COPY root/ /
+
+### Install Application
+RUN set -x && \
+    chmod 1777 /tmp && \
+    . /usr/local/bin/docker-entrypoint-functions.sh && \
+    MYUSER="${APPUSER}" && \
+    MYUID="${APPUID}" && \
+    MYGID="${APPGID}" && \
+    ConfigureUser && \
+    apk upgrade --no-cache && \
+    apk add --no-cache --virtual=build-deps \
+      ca-certificates \
+      curl \
+    && \
+    apk add --no-cache --virtual=run-deps \
+      bash \
+      mediainfo \
+      su-exec \
+      unrar \
+      unzip \
+    && \
+    apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing --virtual=run-deps-testing \
+      chromaprint \
+      mono \
+    && \
+    cert-sync /etc/ssl/certs/ca-certificates.crt && \
+    curl -SsL "https://github.com/lidarr/Lidarr/releases/download/v${LIDARR_VERSION}/Lidarr.master.${LIDARR_VERSION}.linux.tar.gz" -o /tmp/lidarr.tar.gz && \
+    tar xzf /tmp/lidarr.tar.gz -C /opt && \
+    echo "export XDG_CONFIG_HOME='${XDG_CONFIG_HOME}'" >> /etc/profile.d/docker-xdg.sh && \
+    chmod 0755 /opt/Lidarr && \
+    apk del --no-cache --purge \
+      build-deps  \
+    && \
+    mkdir /docker-entrypoint.d && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
+    rm -rf /tmp/* \
+           /var/cache/apk/*  \
+           /var/tmp/*
+    
+### Volume
+Volume ["/config","/downloads","/music"]
+
+### Expose ports
+Expose 8686
+
+### Running User: not used, managed by docker-entrypoint.sh
+#USER lidarr
+
+### Start lidarr
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["lidarr-mono"]
