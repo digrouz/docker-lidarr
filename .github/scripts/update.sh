@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LIDARR_URL="https://api.github.com/repos/Lidarr/Lidarr/tags"
+LIDARR_URL="https://api.github.com/repos/Lidarr/Lidarr/releases"
 
 FULL_LAST_VERSION=$(curl -SsL ${LIDARR_URL} | jq .[2].name -r )
 LAST_VERSION="${FULL_LAST_VERSION:1}"
