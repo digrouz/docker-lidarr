@@ -5,7 +5,6 @@
 # docker-lidarr
 Installs Lidarr into a Linux Container
 
-
 ![Lidarr](https://github.com/lidarr/Lidarr/raw/develop/Logo/128.png)
 
 ## Tag
