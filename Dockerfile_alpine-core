@@ -40,8 +40,6 @@ RUN set -x && \
       libintl \
       sqlite-libs \
       su-exec \
-      unrar \
-      unzip \
     && \
     apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing --virtual=run-deps-testing \
       chromaprint \
