@@ -50,7 +50,10 @@ RUN set -x && \
     chmod 0755 /opt/Lidarr && \
     find /opt/Lidarr -type d -exec chmod 0755 {} \; && \
     find /opt/Lidarr -type f -exec chmod 0644 {} \; && \
-    chmod 0755 /opt/Lidarr/Lidarr && \
+    chmod 0755 \
+      /opt/Lidarr/Lidarr \
+      /opt/Lidarr/fpcalc \
+     && \
     apk del --no-cache --purge \
       build-deps  \
     && \
