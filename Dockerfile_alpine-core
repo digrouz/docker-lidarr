@@ -41,7 +41,7 @@ RUN set -x && \
       sqlite-libs \
       su-exec \
     && \
-    apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing --virtual=run-deps-testing \
+    apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/community --virtual=run-deps-testing \
       chromaprint \
     && \
     curl -SsL "https://github.com/lidarr/Lidarr/releases/download/v${LIDARR_VERSION}/Lidarr.master.${LIDARR_VERSION}.linux-musl-core-${LIDARR_ARCH}.tar.gz" -o /tmp/lidarr.tar.gz && \
