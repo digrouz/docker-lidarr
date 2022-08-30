@@ -2,7 +2,7 @@
 
 LIDARR_URL="https://api.github.com/repos/Lidarr/Lidarr/releases"
 
-FULL_LAST_VERSION=$(curl -SsL ${LIDARR_URL} | jq -c '.[] | select( .prerelease == false )'  | jq .[0].name -r )
+FULL_LAST_VERSION=$(curl -SsL ${LIDARR_URL} | jq -c '.[] | select( .prerelease == false )'  | jq .[].name -r | head -1 )
 LAST_VERSION="${FULL_LAST_VERSION}"
 
 sed -i -e "s|LIDARR_VERSION='.*'|LIDARR_VERSION='${LAST_VERSION}'|" Dockerfile*
