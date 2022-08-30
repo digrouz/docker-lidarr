@@ -34,15 +34,13 @@ RUN set -x && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
+      chromaprint \
       gcompat \
       icu \
       mediainfo \
       libintl \
       sqlite-libs \
       su-exec \
-    && \
-    apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/community --virtual=run-deps-testing \
-      chromaprint \
     && \
     curl -SsL "https://github.com/lidarr/Lidarr/releases/download/v${LIDARR_VERSION}/Lidarr.master.${LIDARR_VERSION}.linux-musl-core-${LIDARR_ARCH}.tar.gz" -o /tmp/lidarr.tar.gz && \
     tar xzf /tmp/lidarr.tar.gz -C /opt && \
