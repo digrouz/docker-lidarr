@@ -23,15 +23,12 @@ RUN set -x && \
       curl \
     && \
     apk add --no-cache --virtual=run-deps \
-      bash \
-      ca-certificates \
       chromaprint \
       gcompat \
       icu \
       mediainfo \
       libintl \
       sqlite-libs \
-      su-exec \
     && \
     curl -SsL "https://github.com/lidarr/Lidarr/releases/download/v${LIDARR_VERSION}/Lidarr.master.${LIDARR_VERSION}.linux-musl-core-${LIDARR_ARCH}.tar.gz" -o /tmp/lidarr.tar.gz && \
     tar xzf /tmp/lidarr.tar.gz -C /opt && \
