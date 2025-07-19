@@ -54,7 +54,7 @@ spec:
           emptyDir: { }
           {{- end }}
         - name: lidarr-music
-          {{- if .Values.persistence.incomplete.enabled }}
+          {{- if .Values.persistence.music.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-lidarr-music-pvc
           {{- else }}
