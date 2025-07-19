@@ -48,8 +48,8 @@ RUN set -x && \
            /var/tmp/*
     
 ### Volume
-Volume ["/config"]
+VOLUME ["/config"]
 
 ### Expose ports
-Expose 8686
+EXPOSE 8686
 
