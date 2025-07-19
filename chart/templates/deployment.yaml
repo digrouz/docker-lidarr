@@ -42,21 +42,21 @@ spec:
         - name: lidarr-config
           {{- if .Values.persistence.config.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-lidarr-config-pvc
+            claimName: {{ .Release.Name }}-config-pvc
           {{- else }}
           emptyDir: { }
           {{- end }}
         - name: lidarr-downloads
           {{- if .Values.persistence.downloads.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-lidarr-downloads-pvc
+            claimName: {{ .Release.Name }}-downloads-pvc
           {{- else }}
           emptyDir: { }
           {{- end }}
         - name: lidarr-music
           {{- if .Values.persistence.music.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-lidarr-music-pvc
+            claimName: {{ .Release.Name }}-music-pvc
           {{- else }}
           emptyDir: { }
           {{- end }}
