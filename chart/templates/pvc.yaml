@@ -3,6 +3,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Release.Name }}-lidarr-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: lidarr 
 spec:
   accessModes:
     - {{ .Values.persistence.config.accessMode | quote }}

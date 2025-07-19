@@ -1,39 +1,62 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-lidarr
+  namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ .Release.Name }}-lidarr
+    app.kubernetes.io/component: lidarr
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-lidarr
+      app.kubernetes.io/component: lidarr
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-lidarr
+        app.kubernetes.io/component: lidarr
     spec:
       containers:
         - name: lidarr
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: 8686
-              protocol: TCP
+            - containerPort: 8686
           volumeMounts:
-            - name: config
-              mountPath: /config
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            - mountPath: /config
+              name: lidarr-config
+            - mountPath: /downloads
+              name: lidarr-downloads
+            - mountPath: /music
+              name: lidarr-music
+          env:
+            - name: GID
+              value: "{{ .Values.service.gid }}"
+            - name: UID
+              value: "{{ .Values.service.uid }}"
+            - name: TZ
+              value: "{{ .Values.service.tz }}"
+            - name: AUTOUPGRADE
+              value: "{{ .Values.service.autoupgrade }}"
       volumes:
-        - name: config
+        - name: lidarr-config
+          {{- if .Values.persistence.config.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-lidarr-config
-      nodeSelector:
-        {{- toYaml .Values.nodeSelector | nindent 8 }}
-      affinity:
-        {{- toYaml .Values.affinity | nindent 8 }}
-      tolerations:
-        {{- toYaml .Values.tolerations | nindent 8 }}
+            claimName: {{ include "lidarr.fullname" . }}-config-pvc
+          {{- else }}
+          emptyDir: { }
+          {{- end }}
+        - name: lidarr-downloads
+          {{- if .Values.persistence.downloads.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "lidarr.fullname" . }}-downloads-pvc
+          {{- else }}
+          emptyDir: { }
+          {{- end }}
+        - name: lidarr-music
+          {{- if .Values.persistence.incomplete.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "lidarr.fullname" . }}-music-pvc
+          {{- else }}
+          emptyDir: { }
+          {{- end }}

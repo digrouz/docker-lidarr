@@ -1,38 +1,78 @@
-replicaCount: 1
-
+## @section Kubernetes settings
+##
 image:
-  repository: lidarr
-  pullPolicy: IfNotPresent
+  ## @param image.registry lidarr image registry
+  ##
+  registry: docker.io
+  ## @param image.repository lidarr image repository
+  ##
+  repository: digrouz/lidarr
+  ##
+  ## @param image.tag lidarr image tag
+  ## Ref: https://hub.docker.com/r/digrouz/lidarr/tags
+  ##
   tag: "latest"
-
+  ## @param image.pullPolicy lidarr image pull policy
+  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: Always
+## @param fullnameOverride String to override the application name.
+##
+fullnameOverride: ""
+## @section Service Configuration
+##
 service:
-  type: ClusterIP
-  port: 8686
-
+  ## @param service.uid user id running lidarr
+  ##
+  uid: 12345
+  ## @param service.gid group id running lidarr
+  ##
+  gid: 12345
+  ## @param service.autoupgrade apply OS updates inside container at startup
+  ##
+  autoupgrade: 0
+  ## @param service.tz Time Zone
+  ##
+  tz: Europe/Brussels
 ingress:
-  enabled: false
-  annotations: {}
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-
-resources: {}
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
+  webui:
+    ## @param ingress.webui.enabled Enable ingress for lidarr webui
+    ##
+    enabled: true
+    ## @param ingress.webui.ingressClassName Ingress class name for lidarr webui ingress
+    ##
+    ingressClassName: traefik
+    ## @param ingress.webui.host Host for lidarr webui ingress
+    ##
+    host: ""
+    ## @param ingress.webui.tls Enable TLS for lidarr webui ingress
+    ##
+    tls: true
+    ## @param ingress.webui.annotations Annotations for lidarr webui ingress
+    ##
+    annotations:
+      traefik.ingress.kubernetes.io/router.middlewares: [] 
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+## @section Storage persistence Configuration
+##
 persistence:
   config:
+    ## @param persistence.config.enabled Enable persistence for lidarr config
+    ## If enabled, the config will be stored in a persistent volume
+    ## If disabled, the config will be stored in a temporary volume
     enabled: true
+    ## @param persistence.config.storageClass Storage class for lidarr config
+    ## If not set, the default storage class will be used
+    storageClass: default
+    ## @param persistence.config.existingClaim Existing persistent volume claim for lidarr config
+    ## If set, the config will be stored in the existing persistent volume claim
+    existingClaim: ""
+    ## @param persistence.config.accessMode Access mode for lidarr config
+    ## If not set, the default access mode will be used
     accessMode: ReadWriteOnce
-    size: 1Gi
-    storageClass: ""
+    ## @param persistence.config.size Size of the persistent volume for lidarr config
+    ## If not set, the default size will be used
+    size: 5Gi
 
 extraObjects: []
 
