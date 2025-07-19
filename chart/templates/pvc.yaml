@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Release.Name }}-lidarr-config
+  name: {{ .Release.Name }}-lidarr-config-pvc
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: lidarr 
