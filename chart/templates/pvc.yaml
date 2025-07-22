@@ -1,5 +1,5 @@
-{{- if .Values.persistence.config.enabled -}}
-{{- if eq .Values.persistence.config.type "pvc" -}}
+{{- if .Values.persistence.config.enabled }}
+{{- if eq .Values.persistence.config.type "pvc" }}
   apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
