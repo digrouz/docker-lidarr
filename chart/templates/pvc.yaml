@@ -14,7 +14,7 @@
         requests:
           storage: {{ .Values.persistence.config.pvc.size | quote }}
       {{- if .Values.persistence.config.pvc.storageClass }}
-      storageClassName: {{ .Values.persistence.pvc.config.storageClass | quote }}
+      storageClassName: {{ .Values.persistence.config.pvc.storageClass | quote }}
       {{- end }}
   {{- end }}    
 {{- end }}
