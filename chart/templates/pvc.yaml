@@ -1,20 +1,20 @@
 {{- if .Values.persistence.config.enabled -}}
-  {{- if eq .Values.persistence.config.type "pvc" -}}
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: {{ .Release.Name }}-config-pvc
-      namespace: {{ .Release.Namespace }}
-      labels:
-        app.kubernetes.io/component: lidarr 
-    spec:
-      accessModes:
-        - {{ .Values.persistence.config.pvc.accessMode | quote }}
-      resources:
-        requests:
-          storage: {{ .Values.persistence.config.pvc.size | quote }}
-      {{- if .Values.persistence.config.pvc.storageClass }}
-      storageClassName: {{ .Values.persistence.config.pvc.storageClass | quote }}
-      {{- end }}
-  {{- end }}    
+{{- if eq .Values.persistence.config.type "pvc" -}}
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: {{ .Release.Name }}-config-pvc
+    namespace: {{ .Release.Namespace }}
+    labels:
+      app.kubernetes.io/component: lidarr 
+  spec:
+    accessModes:
+      - {{ .Values.persistence.config.pvc.accessMode | quote }}
+    resources:
+      requests:
+        storage: {{ .Values.persistence.config.pvc.size | quote }}
+    {{- if .Values.persistence.config.pvc.storageClass }}
+    storageClassName: {{ .Values.persistence.config.pvc.storageClass | quote }}
+    {{- end }}
+{{- end }}    
 {{- end }}
