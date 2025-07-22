@@ -41,12 +41,12 @@ spec:
       volumes:
         - name: lidarr-config
           {{- if .Values.persistence.config.enabled }}
-            {{- if eq .Values.persistence.config.type "pvc" }}
-            persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-config-pvc
-            {{- else }}
-            emptyDir: { }
-            {{- end }}
+          {{- if eq .Values.persistence.config.type "pvc" }}
+          persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-config-pvc
+          {{- else }}
+          emptyDir: { }
+          {{- end }}
           {{- end }} 
         - name: lidarr-downloads
           {{- if .Values.persistence.downloads.enabled }}
