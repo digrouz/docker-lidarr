@@ -43,11 +43,11 @@ spec:
           {{- if .Values.persistence.config.enabled }}
             {{- if eq .Values.persistence.config.type "pvc" }}
             persistentVolumeClaim:
-              claimName: {{ .Release.Name }}-config-pvc
+            claimName: {{ .Release.Name }}-config-pvc
             {{- else }}
             emptyDir: { }
             {{- end }}
-          {{- end }}
+          {{- end }} 
         - name: lidarr-downloads
           {{- if .Values.persistence.downloads.enabled }}
           persistentVolumeClaim:
