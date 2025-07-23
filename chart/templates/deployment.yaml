@@ -50,15 +50,19 @@ spec:
           {{- end }} 
         - name: lidarr-downloads
           {{- if .Values.persistence.downloads.enabled }}
+          {{- if eq .Values.persistence.downloads.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-downloads-pvc
           {{- else }}
           emptyDir: { }
           {{- end }}
+          {{- end }}
         - name: lidarr-music
           {{- if .Values.persistence.music.enabled }}
+          {{- if eq .Values.persistence.music.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-music-pvc
           {{- else }}
           emptyDir: { }
+          {{- end }}
           {{- end }}

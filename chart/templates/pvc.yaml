@@ -16,5 +16,44 @@ spec:
   {{- if .Values.persistence.config.pvc.storageClass }}
   storageClassName: {{ .Values.persistence.config.pvc.storageClass | quote }}
   {{- end }}
-{{- end }}    
+{{- end }}   
+--- 
+{{- if eq .Values.persistence.downloads.type "pvc" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-downloads-pvc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: lidarr 
+spec:
+  accessModes:
+    - {{ .Values.persistence.downloads.pvc.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.downloads.pvc.size | quote }}
+  {{- if .Values.persistence.downloads.pvc.storageClass }}
+  storageClassName: {{ .Values.persistence.downloads.pvc.storageClass | quote }}
+  {{- end }}
+{{- end }}   
+---
+{{- if eq .Values.persistence.music.type "pvc" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-music-pvc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: lidarr 
+spec:
+  accessModes:
+    - {{ .Values.persistence.music.pvc.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.music.pvc.size | quote }}
+  {{- if .Values.persistence.music.pvc.storageClass }}
+  storageClassName: {{ .Values.persistence.music.pvc.storageClass | quote }}
+  {{- end }}
+{{- end }} 
 {{- end }}
+
