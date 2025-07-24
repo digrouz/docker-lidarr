@@ -18,6 +18,7 @@ spec:
   {{- end }}
 {{- end }}   
 --- 
+{{- if .Values.persistence.downloads.enabled }}
 {{- if eq .Values.persistence.downloads.type "pvc" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -37,6 +38,7 @@ spec:
   {{- end }}
 {{- end }}   
 ---
+{{- if .Values.persistence.music.enabled }}
 {{- if eq .Values.persistence.music.type "pvc" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
