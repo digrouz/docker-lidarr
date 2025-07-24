@@ -44,7 +44,7 @@ spec:
           {{- if eq .Values.persistence.config.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-config-pvc
-          {{- if eq .Values.persistence.config.type "nfs" }}
+          {{- else if eq .Values.persistence.config.type "nfs" }}
           nfs:
             server: {{ .Values.persistence.config.nfs.server }}
             path: {{ .Values.persistence.config.nfs.path }}
@@ -57,7 +57,7 @@ spec:
           {{- if eq .Values.persistence.downloads.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-downloads-pvc
-          {{- if eq .Values.persistence.downloads.type "nfs" }}
+          {{- else if eq .Values.persistence.downloads.type "nfs" }}
           nfs:
             server: {{ .Values.persistence.downloads.nfs.server }}
             path: {{ .Values.persistence.downloads.nfs.path }}
@@ -70,7 +70,7 @@ spec:
           {{- if eq .Values.persistence.music.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-music-pvc
-          {{- if eq .Values.persistence.config.type "nfs" }}
+          {{- else if eq .Values.persistence.config.type "nfs" }}
           nfs:
             server: {{ .Values.persistence.config.nfs.server }}
             path: {{ .Values.persistence.config.nfs.path }}
