@@ -1,4 +1,3 @@
-{{- if .Values.persistence.config.enabled }}
 {{- if eq .Values.persistence.config.type "pvc" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -17,9 +16,7 @@ spec:
   storageClassName: {{ .Values.persistence.config.pvc.storageClass | quote }}
   {{- end }}
 {{- end }}
-{{- end }}
 --- 
-{{- if .Values.persistence.downloads.enabled }}
 {{- if eq .Values.persistence.downloads.type "pvc" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -37,10 +34,8 @@ spec:
   {{- if .Values.persistence.downloads.pvc.storageClass }}
   storageClassName: {{ .Values.persistence.downloads.pvc.storageClass | quote }}
   {{- end }}
-{{- end }}
-{{- end }}   
+{{- end }} 
 ---
-{{- if .Values.persistence.music.enabled }}
 {{- if eq .Values.persistence.music.type "pvc" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -58,6 +53,5 @@ spec:
   {{- if .Values.persistence.music.pvc.storageClass }}
   storageClassName: {{ .Values.persistence.music.pvc.storageClass | quote }}
   {{- end }}
-{{- end }} 
 {{- end }}
 

@@ -40,7 +40,6 @@ spec:
               value: "{{ .Values.service.autoupgrade }}"
       volumes:
         - name: lidarr-config
-          {{- if .Values.persistence.config.enabled }}
           {{- if eq .Values.persistence.config.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-config-pvc
@@ -51,9 +50,7 @@ spec:
           {{- else }}
           emptyDir: { }
           {{- end }}
-          {{- end }} 
         - name: lidarr-downloads
-          {{- if .Values.persistence.downloads.enabled }}
           {{- if eq .Values.persistence.downloads.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-downloads-pvc
@@ -64,9 +61,7 @@ spec:
           {{- else }}
           emptyDir: { }
           {{- end }}
-          {{- end }}
         - name: lidarr-music
-          {{- if .Values.persistence.music.enabled }}
           {{- if eq .Values.persistence.music.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-music-pvc
@@ -76,5 +71,4 @@ spec:
             path: {{ .Values.persistence.config.nfs.path }}
           {{- else }}
           emptyDir: { }
-          {{- end }}
           {{- end }}
