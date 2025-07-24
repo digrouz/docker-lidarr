@@ -16,7 +16,8 @@ spec:
   {{- if .Values.persistence.config.pvc.storageClass }}
   storageClassName: {{ .Values.persistence.config.pvc.storageClass | quote }}
   {{- end }}
-{{- end }}   
+{{- end }}
+{{- end }}
 --- 
 {{- if .Values.persistence.downloads.enabled }}
 {{- if eq .Values.persistence.downloads.type "pvc" }}
@@ -36,6 +37,7 @@ spec:
   {{- if .Values.persistence.downloads.pvc.storageClass }}
   storageClassName: {{ .Values.persistence.downloads.pvc.storageClass | quote }}
   {{- end }}
+{{- end }}
 {{- end }}   
 ---
 {{- if .Values.persistence.music.enabled }}
