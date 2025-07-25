@@ -67,8 +67,8 @@ spec:
             claimName: {{ .Release.Name }}-music-pvc
           {{- else if eq .Values.persistence.config.type "nfs" }}
           nfs:
-            server: {{ .Values.persistence.config.nfs.server }}
-            path: {{ .Values.persistence.config.nfs.path }}
+            server: {{ .Values.persistence.music.nfs.server }}
+            path: {{ .Values.persistence.music.nfs.path }}
           {{- else }}
           emptyDir: { }
           {{- end }}
