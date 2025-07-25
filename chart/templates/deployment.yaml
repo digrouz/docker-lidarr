@@ -65,7 +65,7 @@ spec:
           {{- if eq .Values.persistence.music.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-music-pvc
-          {{- else if eq .Values.persistence.config.type "nfs" }}
+          {{- else if eq .Values.persistence.music.type "nfs" }}
           nfs:
             server: {{ .Values.persistence.music.nfs.server }}
             path: {{ .Values.persistence.music.nfs.path }}
