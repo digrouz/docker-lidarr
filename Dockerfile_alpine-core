@@ -1,7 +1,7 @@
 FROM digrouz/alpine-s6:latest
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG LIDARR_VERSION='2.12.4.4658'
+ARG LIDARR_VERSION='2.13.3.4711'
 ARG LIDARR_ARCH='x64'
 
 ### Environment variables
