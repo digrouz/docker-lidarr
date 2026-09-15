@@ -1,15 +1,18 @@
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: {{ .Release.Name }}-svc
+  name: {{ include "lidarr.fullname" . }}-svc
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: lidarr
+    {{- include "lidarr.labels" . | nindent 4 }}
 spec:
+  type: {{ .Values.service.type }}
   ports:
-  - port: 8686
-    name: webui
-    protocol: TCP
+    - port: 8686
+      targetPort: webui
+      name: webui
+      protocol: TCP
   selector:
-    app.kubernetes.io/component: lidarr
+    app.kubernetes.io/name: lidarr
+    app.kubernetes.io/instance: {{ .Release.Name }}

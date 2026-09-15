@@ -1,11 +1,11 @@
-{{- if eq .Values.persistence.config.type "pvc" }}
+{{- if and (eq .Values.persistence.config.type "pvc") (not .Values.persistence.config.pvc.existingClaim) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Release.Name }}-config-pvc
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: lidarr 
+    {{- include "lidarr.labels" . | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.persistence.config.pvc.accessMode | quote }}
@@ -16,15 +16,15 @@ spec:
   storageClassName: {{ .Values.persistence.config.pvc.storageClass | quote }}
   {{- end }}
 {{- end }}
---- 
-{{- if eq .Values.persistence.downloads.type "pvc" }}
+---
+{{- if and (eq .Values.persistence.downloads.type "pvc") (not .Values.persistence.downloads.pvc.existingClaim) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Release.Name }}-downloads-pvc
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: lidarr 
+    {{- include "lidarr.labels" . | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.persistence.downloads.pvc.accessMode | quote }}
@@ -34,16 +34,16 @@ spec:
   {{- if .Values.persistence.downloads.pvc.storageClass }}
   storageClassName: {{ .Values.persistence.downloads.pvc.storageClass | quote }}
   {{- end }}
-{{- end }} 
+{{- end }}
 ---
-{{- if eq .Values.persistence.music.type "pvc" }}
+{{- if and (eq .Values.persistence.music.type "pvc") (not .Values.persistence.music.pvc.existingClaim) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Release.Name }}-music-pvc
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: lidarr 
+    {{- include "lidarr.labels" . | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.persistence.music.pvc.accessMode | quote }}

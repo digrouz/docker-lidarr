@@ -1,16 +1,19 @@
 ---
-{{- if .Values.ingress.webui.enabled -}}
+{{- if .Values.ingress.webui.enabled }}
+{{- if not .Values.ingress.webui.host }}
+{{- fail "ingress.webui.host is required when ingress.webui.enabled is true" }}
+{{- end }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-webui-ingress
+  name: {{ include "lidarr.fullname" . }}-webui-ingress
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: lidarr
+    {{- include "lidarr.labels" . | nindent 4 }}
   {{- if .Values.ingress.webui.annotations }}
   annotations:
     {{- range $key, $value := .Values.ingress.webui.annotations }}
-    {{ $key }}: {{ $value }}
+    {{ $key }}: {{ $value | quote }}
     {{- end }}
   {{- end }}
 spec:
@@ -18,16 +21,16 @@ spec:
   ingressClassName: {{ .Values.ingress.webui.ingressClassName }}
   {{- end }}
   rules:
-  - host: {{ .Values.ingress.webui.host }}
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ .Release.Name }}-svc
-            port:
-              name: webui
+    - host: {{ .Values.ingress.webui.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "lidarr.fullname" . }}-svc
+                port:
+                  name: webui
   {{- if .Values.ingress.webui.tls }}
   tls:
     - hosts:
